@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Asesor Nutricional Personal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7f3;
+            margin: 0;
+            padding: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #2f6b3f;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 15px;
+        }
+        select, textarea, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        button {
+            margin-top: 20px;
+            background: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #449d48;
+        }
+        .resultado {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f8f8;
+            border-left: 4px solid #4caf50;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Asesor Nutricional Personal</h1>
+        <p style="text-align:center;">
+            Obtén un plan nutricional personalizado basado en tu edad, nivel de actividad y preferencias alimentarias.
+        </p>
+
+        <form method="POST">
+            <label for="edad">Edad:</label>
+            <select name="edad" id="edad" required>
+                <option value="">Selecciona tu edad</option>
+                <option value="18-25">18-25</option>
+                <option value="26-35">26-35</option>
+                <option value="36-50">36-50</option>
+                <option value="51-65">51-65</option>
+                <option value="66+">66+</option>
+            </select>
+
+            <label for="nivel_actividad">Nivel de Actividad:</label>
+            <select name="nivel_actividad" id="nivel_actividad" required>
+                <option value="">Selecciona tu nivel de actividad</option>
+                {% for valor, texto in niveles_actividad %}
+                    <option value="{{ texto }}">{{ texto }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="comidas_favoritas">Comidas Favoritas:</label>
+            <textarea name="comidas_favoritas" id="comidas_favoritas" placeholder="Lista algunas de tus comidas favoritas..." required></textarea>
+
+            <label for="restricciones">Restricciones Dietéticas o Alergias (Opcional):</label>
+            <textarea name="restricciones" id="restricciones" placeholder="Lista cualquier alergia o restricción dietética..."></textarea>
+
+            <button type="submit">Generar Plan Nutricional</button>
+        </form>
+
+        {% if respuesta %}
+            <div class="resultado">
+                <h2>Plan Nutricional Generado</h2>
+                {{ respuesta|safe }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
